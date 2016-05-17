@@ -1,12 +1,16 @@
+mongo:
+  image: mongo:3.0
+  volumes:
+  - /data/db
+
 mpegdashplayer:
   build: .
   links:
     - "mongo:mongo"
+  ports:
+    - "3000:3000"
   environment:
+    ROOT_URL: http://127.0.0.1:3000/
+    PORT: "3000"
     MONGO_URL: mongodb://mongo:27017/mpegdashplayer
-    METEOR_SETTINGS: {"VARIABLE_NAME":"value"}
 
-mongo:
-  image: mongo:3.0
-  volumes:
-  - /hostdir/mongo/data/db:/data/db
